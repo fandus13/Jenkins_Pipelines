@@ -21,6 +21,18 @@ pipeline {
         steps {
            sh 'CI=true npm test'
         }
-      }      
+      }
+      
+      stage('Build') {
+        steps {
+        sh 'npm run build'
+        }
+      }
+      
+      stage('Archive') {
+        steps {
+        archiveArtifacts artifacts: 'build/**/*', fingerprint: true, onlyIfSuccessful: true
+        }
+      }
     }
   }
